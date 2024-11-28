@@ -1,0 +1,28 @@
+.text
+main:
+	# Ler n
+	li $v0, 5  
+	syscall
+	move $t1, $v0
+	
+	# Ler i
+	li $v0, 5      
+	syscall
+	move $t2, $v0 
+	
+	
+	li $t0, 1 
+	sllv $t0, $t0, $t2 #2^i dinamico com $t2
+	
+	
+	div $t1, $t0    
+	mfhi $s0   #pega o resto da div em HI
+	
+	
+	li $v0, 1 
+	move $a0, $s0 
+	syscall
+	
+	
+	li $v0, 10
+	syscall
