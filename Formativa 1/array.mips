@@ -1,0 +1,12 @@
+	# Carregar o valor de A[j] (offset j * 4)
+	mul $t3, $t1, 4       # Multiplica j por 4 (tamanho de palavra em bytes)
+	add $t3, $t3, $s0     # Calcula o endereço de A[j]
+	lw $t4, 0($t3)        # Carrega A[j] em $t4
+
+	# Calcular A[i] = A[j] + N
+	add $t4, $t4, $t2     # Soma A[j] com N
+
+	# Armazenar o valor em A[i] (offset i * 4)
+	mul $t5, $t0, 4       # Multiplica i por 4 (tamanho de palavra em bytes)
+	add $t5, $t5, $s0     # Calcula o endereço de A[i]
+	sw $t4, 0($t5)        # Armazena o resultado em A[i]

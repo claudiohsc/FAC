@@ -1,0 +1,22 @@
+    li $v0, 5
+    syscall
+    move $t0, $v0        # $t0 <- i
+
+    li $v0, 5
+    syscall
+    move $t1, $v0        # $t1 <- j
+
+    li $v0, 5
+    syscall
+    move $t2, $v0        # $t2 <- N
+
+    mul $t0, $t0, 4      # Calcula o offset de A[i] (i * 4)
+    mul $t1, $t1, 4      # Calcula o offset de A[j] (j * 4)
+
+    add $t3, $s0, $t1    # Endereço de A[j]
+    lw $t4, 0($t3)       # Carrega o valor de A[j] em $t4
+
+    add $t4, $t4, $t2    # Soma A[j] + N
+
+    add $t5, $s0, $t0    # Endereço de A[i]
+    sw $t4, 0($t5)       # Salva o resultado em A[i]

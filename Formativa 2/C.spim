@@ -1,0 +1,37 @@
+multfac:
+    addi $t0, $zero, 0
+    add  $t1, $zero, $a0
+    add  $t2, $zero, $a1
+    addi $t3, $zero, 32
+
+    bltz $a0, Neg_Multiplicando
+    j Check_Multiplicador
+Neg_Multiplicando:
+    negu $t1, $a0
+    addi $t0, $t0, 1
+Check_Multiplicador:
+    bltz $a1, Neg_Multiplicador
+    j Multiplicacao
+Neg_Multiplicador:
+    negu $t2, $a1
+    addi $t0, $t0, 1
+
+Multiplicacao:
+Loop_Multiplicacao:
+    andi $t4, $t2, 1
+    beq  $t4, $zero, Shift_Loop
+    add $t5, $t5, $t1
+
+Shift_Loop:
+    srl $t2, $t2, 1
+    sll $t1, $t1, 1
+    addi $t3, $t3, -1
+    bnez $t3, Loop_Multiplicacao
+
+    beq  $t0, $zero, No_Sinal
+    negu $t5, $t5
+
+No_Sinal:
+    mflo $a3
+    mfhi $a2
+    jr   $ra

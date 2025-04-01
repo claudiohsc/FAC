@@ -1,0 +1,43 @@
+.text
+main:
+
+    li $v0, 5
+    syscall
+    move $s0, $v0     
+     
+loop1:
+
+    beq $s0, $zero, termina
+    li $v0, 12
+    syscall
+    move $t0, $v0
+    
+    li $t9, 32
+
+loop2:
+
+    li $v0, 12
+    syscall
+    beq $v0, $t9, loop2
+
+    move $t1, $v0
+    beq $t0, $t1, imprime1      
+
+    li $v0, 1
+    li $a0, 2     
+    syscall
+    
+    addi $s0, $s0, -1
+    j loop1
+    
+imprime1:
+	li $v0, 1
+	li $a0, 1
+	syscall
+	
+	addi $s0, $s0, -1
+	j loop1
+
+termina:
+	li $v0, 10
+	syscall

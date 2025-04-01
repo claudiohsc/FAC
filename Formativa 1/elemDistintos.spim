@@ -1,0 +1,31 @@
+
+elemDistintos:
+
+    beq $a1, $zero, end  
+    li $v0, 1
+    
+    # Inicializa os ponteiros e variáveis
+    move $t0, $a0  
+    addi $t1, $t0, 4     
+
+count_distinct:
+
+    sub $a1, $a1, 1 
+    beq $a1, $zero, end
+    
+    # Carrega os valores apontados por $t0 e $t1
+    lw $t2, 0($t0)       
+    lw $t3, 0($t1)       
+    
+    # Compara os elementos
+    beq $t2, $t3, skip_increment  # Se forem iguais, pula incremento
+    addi $v0, $v0, 1             # Incrementa o contador de distintos
+    
+skip_increment:
+    # Move os ponteiros para os próximos elementos
+    addi $t0, $t0, 4 
+    addi $t1, $t1, 4     
+    j count_distinct     
+
+end:
+    jr $ra               
